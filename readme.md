@@ -1,6 +1,6 @@
 # 🛏️ Quadro de Acomodações — Igreja Maceió
 
-> Página web interativa para visualização e organização da distribuição de quartos, camas e acessibilidade para o evento da Igreja em Maceió.
+> Painel interativo e editável para organização da distribuição de quartos, camas e público para eventos da Igreja em Maceió. Otimizado para retiros e eventos dinâmicos.
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -10,92 +10,60 @@
 
 ## 📋 Sobre o Projeto
 
-Este projeto é um **quadro digital de acomodações** que organiza e exibe de forma clara a estrutura de hospedagem disponível para um evento da igreja. A página permite visualizar a distribuição de quartos coletivos, suítes e infraestrutura sanitária, com **recomendações de alocação baseadas em acessibilidade** para diferentes perfis de público.
+Este projeto é um **quadro digital de acomodações** altamente flexível. Originalmente adaptado para a estrutura de um **Retiro Masculino**, ele permite o gerenciamento completo (CRUD) de quartos coletivos, suítes e blocos auxiliares diretamente na interface do navegador, facilitando a distribuição dos participantes de acordo com perfis específicos.
 
-### Problema Resolvido
+O design foi ajustado para um **Light Mode** elegante e limpo, mantendo a vibração dos badges e a riqueza visual das informações.
 
-Transformar informações brutas sobre a estrutura do local (quartos, camas, banheiros) em um **painel visual interativo** que facilita a tomada de decisão na hora de distribuir participantes, levando em conta:
+### Perfis de Distribuição (Masculino)
 
-- 👴 **Idosos e pessoas com mobilidade reduzida** — evitar escadas e beliches superiores
-- 👶 **Famílias com crianças de colo** — priorizar privacidade e banheiro privativo
-- 💑 **Casais** — suítes com cama de casal
-- 🧑‍🤝‍🧑 **Jovens e adultos** — flexibilidade de alocação
+- 👑 **Liderança / Pastores** — Prioridade para as suítes privativas.
+- 🍳 **Equipe de Cozinha** — Localizados em áreas de fácil acesso e próximas à cozinha (como a Casinha Central).
+- ⚡ **Jovens** — Otimizados nos quartos coletivos maiores com beliches (incluindo superiores).
+- 👤 **Público Geral** — Distribuídos nos dormitórios coletivos gerais.
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Novas Funcionalidades (Versão Editável)
 
 | Funcionalidade | Descrição |
 |---|---|
-| **Tabelas detalhadas** | Quartos coletivos (11), suítes (9) e quartos auxiliares (3) com todas as informações |
-| **Filtros interativos** | Filtragem por perfil de público (Idosos, Famílias, Casais, Jovens) |
-| **Contadores animados** | Header com estatísticas animadas (total de camas, quartos, capacidade) |
-| **Recomendações** | Cards com orientações de alocação por perfil de acessibilidade |
-| **Observações** | Alertas sobre limitações, pendências e prioridades de alocação |
-| **Responsivo** | Layout adaptável para desktop, tablet e mobile |
-| **Modo impressão** | Estilos otimizados para impressão (`Ctrl + P`) |
-| **Tema escuro** | Design premium com glassmorphism e partículas animadas |
-
----
-
-## 🏗️ Estrutura do Local
-
-```
-📊 Capacidade Total: ~240 pessoas
-│
-├── 🏠 Quartos Coletivos (11 quartos) — 214 camas
-│   ├── Quartos 01–08: 20 camas cada (beliches + avulsas)
-│   ├── Quarto 09: 22 camas (misto)
-│   ├── Quarto 10: 12 camas (6 beliches)
-│   └── Quarto 11: 20 camas (10 beliches)
-│
-├── 🛌 Suítes com Escada (6 unidades) — 12 camas
-│   ├── Suítes 01–04: 1 casal + 1 solteiro cada
-│   ├── Suíte 05: 1 casal
-│   └── Suíte 06: 1 casal + 2 solteiros
-│
-├── 🛌 Suítes com Pequeno Lance (3 unidades) — 7 camas
-│   ├── Suítes 07–08: 1 casal + 2 solteiros cada
-│   └── Suíte 09: 1 casal
-│
-└── 🏡 Casinha Central (3 quartos) — ~6–9 camas
-    └── Quantidade exata a confirmar
-```
+| **Edição em Tela (CRUD)** | Adicione, edite ou exclua qualquer quarto ou suíte através de formulários dinâmicos. |
+| **Edição de Títulos** | Clique diretamente no título ou subtítulo do cabeçalho para personalizá-los para o seu evento. |
+| **Persistência Local** | Todas as alterações são salvas automaticamente no navegador (`localStorage`), sem perder dados ao recarregar. |
+| **Exportação JSON** | Exporte todo o mapa de acomodações configurado em um clique para um arquivo `.json` (Backup). |
+| **Exportação CSV** | Exporte os dados consolidados de quartos e suítes diretamente para uma planilha do Excel (.csv). |
+| **Importação JSON** | Carregue dados salvos anteriormente ou configurações prontas para novos eventos. |
+| **Gestão de Observações** | Crie, altere ou exclua cards de observação/pendências na parte inferior. |
+| **Filtros por Perfil** | Destaque e isole apenas as acomodações recomendadas para o público selecionado. |
+| **Light Mode Moderno** | Visual claro e limpo para facilitar a leitura no sol ou em ambientes abertos, mantendo badges coloridos. |
 
 ---
 
 ## 🚀 Como Usar
 
-### Visualização Local
+### Execução Local
 
-Basta abrir o arquivo `index.html` no navegador:
+Basta abrir o arquivo `index.html` no navegador de sua preferência. Não há dependências externas nem necessidade de servidores locais (Node.js, PHP, etc.).
 
 ```bash
-# Clone o repositório
-git clone https://github.com/Rodrigues011xbx/accommodation-chart-page.git
+# Abra a pasta do projeto
+cd Quadro
 
-# Acesse a pasta
-cd accommodation-chart-page
-
-# Abra no navegador (Linux)
+# Abra o index.html no navegador
+# No Linux:
 xdg-open index.html
-
-# Abra no navegador (macOS)
-open index.html
-
-# Abra no navegador (Windows)
+# No Windows:
 start index.html
+# No macOS:
+open index.html
 ```
 
-> **Nota:** Não é necessário nenhum servidor ou instalação de dependências. O projeto é 100% estático (HTML + CSS + JS puro).
+### Gestão e Reutilização dos Dados
 
-### GitHub Pages
-
-O projeto pode ser publicado diretamente via **GitHub Pages** para acesso online:
-
-1. Acesse **Settings** → **Pages** no repositório
-2. Selecione a branch `main` e a pasta `/ (root)`
-3. A página estará disponível em: `https://rodrigues011xbx.github.io/accommodation-chart-page/`
+1. **Editar Dados**: Use o botão de engrenagem/lápis de edição ao lado de cada acomodação para alterar suas especificações ou tags.
+2. **Adicionar Acomodações**: Use o botão verde `+` no canto de cada seção (Quartos Coletivos e Suítes).
+3. **Novo Evento**: Se for usar em outro retiro, basta clicar em **Resetar** para restaurar a estrutura base, ou editar tudo e clicar em **Exportar** para guardar a configuração em seu computador.
+4. **Importar**: Carregue o arquivo `.json` gerado anteriormente para restaurar o mapa completo daquele evento.
 
 ---
 
@@ -104,45 +72,16 @@ O projeto pode ser publicado diretamente via **GitHub Pages** para acesso online
 ```
 Quadro/
 ├── img/
-│   └── acomodacao.png      # Favicon do projeto
-├── index.html              # Página principal
-├── styles.css              # Estilos (design system completo)
-├── app.js                  # Lógica (dados, renderização, filtros, animações)
-├── informacoes.md          # Dados brutos de referência
-└── readme.md               # Documentação
+│   └── acomodacao.png      # Ícone da aplicação / Favicon
+├── index.html              # Estrutura HTML do painel e modais
+├── styles.css              # Estilização Light Mode responsiva
+├── app.js                  # Lógica de CRUD, filtros, import/export e localStorage
+├── informacoes.md          # Referências e anotações brutas iniciais
+└── readme.md               # Documentação do projeto
 ```
 
 ---
 
-## 🎨 Design
-
-O projeto utiliza um design **dark mode premium** com:
-
-- **Glassmorphism** — cards com `backdrop-filter` e bordas sutis
-- **Gradientes** — header e ícones com gradientes vibrantes
-- **Partículas animadas** — efeito de fundo com partículas flutuantes
-- **Micro-animações** — fade-in ao scroll, hover effects, contadores animados
-- **Tipografia** — [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts
-- **Paleta** — tons de índigo, violeta e ciano sobre fundo escuro
-
----
-
-## 🤝 Contribuição
-
-Caso precise atualizar informações de quartos ou adicionar novos dados:
-
-1. Edite o objeto `DATA` no arquivo `app.js`
-2. Cada quarto possui as propriedades: `id`, `name`, `beds`, `bedType`, `showers`, `toilets`, `sinks`, `access`, `tags`, `tagLabels`
-3. Os filtros e recomendações se ajustam automaticamente com base nas `tags`
-
----
-
-## 📄 Licença
-
-Este projeto foi desenvolvido para uso interno da organização do evento da Igreja em Maceió.
-
----
-
 <p align="center">
-  Feito com ❤️ para a Igreja em Maceió — Julho 2026
+  Feito com ❤️ para a Igreja em Maceió — Atualizado em 2026
 </p>

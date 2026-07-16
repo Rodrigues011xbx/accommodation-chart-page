@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quadro de acomodações - Distribuição de quartos, camas e acessibilidade para o evento da Igreja em Maceió">
+    <meta name="description" content="Quadro de acomodações editável — Distribuição de quartos, camas e público para eventos da Igreja em Maceió">
     <title>Quadro de Acomodações | Igreja Maceió</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,20 +12,51 @@
     <link rel="shortcut icon" href="./img/acomodacao.png" type="image/x-icon">
 </head>
 <body>
-    <!-- Animated background particles -->
-    <div class="bg-particles" id="bgParticles"></div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="header-content">
-            <div class="header-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/>
-                </svg>
+            <div class="header-left">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 id="eventTitle" class="editable-title" title="Clique para editar">Quadro de Acomodações</h1>
+                    <p class="header-subtitle" id="eventSubtitle" title="Clique para editar">Retiro Masculino — Distribuição de Quartos & Público</p>
+                </div>
             </div>
-            <div>
-                <h1>Quadro de Acomodações</h1>
-                <p class="header-subtitle">Mapa do Local — Distribuição de Quartos & Acessibilidade</p>
+            <div class="header-actions">
+                <button class="btn btn-ghost" id="btnExport" title="Exportar Backup (JSON)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    Exportar Backup
+                </button>
+                <button class="btn btn-ghost" id="btnExportCSV" title="Exportar Planilha (Excel / CSV)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    Exportar Planilha
+                </button>
+                <label class="btn btn-ghost" id="btnImportLabel" title="Importar Backup (JSON)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    Importar Backup
+                    <input type="file" id="btnImport" accept=".json" hidden>
+                </label>
+                <button class="btn btn-ghost btn-danger" id="btnReset" title="Restaurar dados originais">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5"/>
+                    </svg>
+                    Resetar
+                </button>
             </div>
         </div>
         <div class="header-stats">
@@ -44,87 +75,64 @@
         </div>
     </header>
 
-    <!-- Legend / Filter Bar -->
+    <!-- Filter Bar -->
     <section class="filter-bar">
         <div class="filter-bar-inner">
             <h2 class="filter-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                     <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
                 </svg>
-                Filtrar por Perfil de Público
+                Filtrar por Perfil
             </h2>
             <div class="filter-chips" id="filterChips">
                 <button class="chip active" data-filter="all">
                     <span class="chip-dot" style="background: var(--accent-primary)"></span>
                     Todos
                 </button>
-                <button class="chip" data-filter="elderly">
-                    <span class="chip-dot" style="background: var(--tag-elderly)"></span>
-                    Idosos / Mobilidade Reduzida
+                <button class="chip" data-filter="leadership">
+                    <span class="chip-dot" style="background: var(--tag-leadership)"></span>
+                    Liderança / Pastores
                 </button>
-                <button class="chip" data-filter="family">
-                    <span class="chip-dot" style="background: var(--tag-family)"></span>
-                    Famílias com Crianças
-                </button>
-                <button class="chip" data-filter="couple">
-                    <span class="chip-dot" style="background: var(--tag-couple)"></span>
-                    Casais
+                <button class="chip" data-filter="kitchen">
+                    <span class="chip-dot" style="background: var(--tag-kitchen)"></span>
+                    Equipe de Cozinha
                 </button>
                 <button class="chip" data-filter="youth">
                     <span class="chip-dot" style="background: var(--tag-youth)"></span>
-                    Jovens / Adultos
+                    Jovens
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Accessibility Legend -->
-    <section class="legend-section">
-        <div class="legend-grid">
-            <div class="legend-item">
-                <span class="legend-icon accessible">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-1 6c-1.66 0-3 1.34-3 3v2h2v7h4v-7h2v-2c0-1.66-1.34-3-3-3h-2z"/></svg>
-                </span>
-                <span>Acessível (térreo/sem escadas)</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-icon stairs">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 3H5v2h3v2H5v2h5v2H5v2h7v2H5v2h9v2H5v2h14V3z"/></svg>
-                </span>
-                <span>Requer subir escadas</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-icon private-bath">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M7 5c-1.1 0-2 .9-2 2v3H2v7c0 1.1.9 2 2 2h1v1h2v-1h10v1h2v-1h1c1.1 0 2-.9 2-2v-7h-3V7c0-1.1-.9-2-2-2H7zm0 2h8v3H7V7zm-3 5h16v5H4v-5z"/></svg>
-                </span>
-                <span>Banheiro privativo no quarto</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-icon shared-bath">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><circle cx="12" cy="12" r="10" opacity="0.2"/><path d="M15.5 14h-7l-1-1H4v7h16v-7h-3.5l-1 1z"/></svg>
-                </span>
-                <span>Banheiro compartilhado</span>
+                <button class="chip" data-filter="general">
+                    <span class="chip-dot" style="background: var(--tag-general)"></span>
+                    Público Geral
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="main-content">
+
         <!-- Section: Quartos Coletivos -->
         <section class="section" id="sectionColetivos">
             <div class="section-header">
                 <div class="section-icon coletivo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
                     </svg>
                 </div>
                 <div>
                     <h2>Quartos Coletivos</h2>
-                    <p class="section-subtitle">Dormitórios compartilhados — 214 camas</p>
+                    <p class="section-subtitle" id="coletivosSubtitle">Dormitórios compartilhados</p>
                 </div>
-                <div class="section-badge">11 Quartos</div>
+                <div class="section-actions">
+                    <span class="section-badge" id="coletivoBadge">11 Quartos</span>
+                    <button class="btn-icon btn-add" data-section="coletivos" title="Adicionar quarto">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-
             <div class="table-container">
                 <table class="data-table" id="tableColetivos">
                     <thead>
@@ -137,11 +145,10 @@
                             <th>Pias</th>
                             <th>Acesso</th>
                             <th>Público Recomendado</th>
+                            <th class="th-actions">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="tbodyColetivos">
-                        <!-- Populated by JS -->
-                    </tbody>
+                    <tbody id="tbodyColetivos"></tbody>
                 </table>
             </div>
         </section>
@@ -150,28 +157,35 @@
         <section class="section" id="sectionSuites">
             <div class="section-header">
                 <div class="section-icon suite">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
                         <path d="M3 7v11M21 7v11M3 18h18M5 7h14a2 2 0 0 1 2 2v2H3V9a2 2 0 0 1 2-2zM7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
                     </svg>
                 </div>
                 <div>
                     <h2>Suítes</h2>
-                    <p class="section-subtitle">Acomodações privativas — 9 suítes + 3 quartos auxiliares</p>
+                    <p class="section-subtitle">Acomodações privativas</p>
                 </div>
-                <div class="section-badge suite-badge">12 Unidades</div>
+                <div class="section-actions">
+                    <span class="section-badge suite-badge" id="suiteBadge">12 Unidades</span>
+                    <button class="btn-icon btn-add" data-section="suites" title="Adicionar suíte">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <!-- Sub-section: 6 suites upstairs -->
-            <div class="sub-section">
+            <!-- Sub: Escada -->
+            <div class="sub-section" id="subEscada">
                 <div class="sub-header">
                     <span class="sub-icon stairs-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 3H5v2h3v2H5v2h5v2H5v2h7v2H5v2h9v2H5v2h14V3z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 3H5v2h3v2H5v2h5v2H5v2h7v2H5v2h9v2H5v2h14V3z"/></svg>
                     </span>
-                    <h3>Suítes com Escada (6 unidades)</h3>
+                    <h3>Suítes com Escada <span class="sub-count" id="escadaCount">(6)</span></h3>
                     <span class="sub-note">Acesso por escada principal</span>
                 </div>
                 <div class="table-container">
-                    <table class="data-table" id="tableSuitesEscada">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Suíte</th>
@@ -180,26 +194,25 @@
                                 <th>Banheiro</th>
                                 <th>Acesso</th>
                                 <th>Público Recomendado</th>
+                                <th class="th-actions">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="tbodySuitesEscada">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="tbodySuitesEscada"></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Sub-section: 3 suites small stairs -->
-            <div class="sub-section">
+            <!-- Sub: Pequeno Lance -->
+            <div class="sub-section" id="subPequena">
                 <div class="sub-header">
                     <span class="sub-icon stairs-icon-small">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 3H5v2h3v2H5v2h5v2H5v2h7v2H5v2h9v2H5v2h14V3z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 3H5v2h3v2H5v2h5v2H5v2h7v2H5v2h9v2H5v2h14V3z"/></svg>
                     </span>
-                    <h3>Suítes com Pequeno Lance de Escadas (3 unidades)</h3>
+                    <h3>Suítes com Pequeno Lance <span class="sub-count" id="pequenaCount">(3)</span></h3>
                     <span class="sub-note">Acesso por lance curto de escadas</span>
                 </div>
                 <div class="table-container">
-                    <table class="data-table" id="tableSuitesPequena">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Suíte</th>
@@ -208,26 +221,25 @@
                                 <th>Banheiro</th>
                                 <th>Acesso</th>
                                 <th>Público Recomendado</th>
+                                <th class="th-actions">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="tbodySuitesPequena">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="tbodySuitesPequena"></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Sub-section: 3 quartos casinha central -->
-            <div class="sub-section">
+            <!-- Sub: Casinha Central -->
+            <div class="sub-section" id="subCasinha">
                 <div class="sub-header">
                     <span class="sub-icon house-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                     </span>
-                    <h3>Quartos da Casinha Central (3 unidades)</h3>
-                    <span class="sub-note">Banheiro compartilhado entre os 3 quartos</span>
+                    <h3>Quartos da Casinha Central <span class="sub-count" id="casinhaCount">(3)</span></h3>
+                    <span class="sub-note">Banheiro compartilhado</span>
                 </div>
                 <div class="table-container">
-                    <table class="data-table" id="tableCasinha">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Quarto</th>
@@ -236,40 +248,36 @@
                                 <th>Banheiro</th>
                                 <th>Acesso</th>
                                 <th>Público Recomendado</th>
+                                <th class="th-actions">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="tbodyCasinha">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="tbodyCasinha"></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- Summary Section -->
+        <!-- Section: Resumo -->
         <section class="section" id="sectionResumo">
             <div class="section-header">
                 <div class="section-icon resumo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
                         <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 5h6M9 14l2 2 4-4"/>
                     </svg>
                 </div>
                 <div>
-                    <h2>Resumo Geral & Recomendações</h2>
-                    <p class="section-subtitle">Orientações de acessibilidade para distribuição do público</p>
+                    <h2>Resumo & Recomendações</h2>
+                    <p class="section-subtitle">Orientações para distribuição do público</p>
                 </div>
             </div>
-
-            <div class="recommendations-grid" id="recommendationsGrid">
-                <!-- Populated by JS -->
-            </div>
+            <div class="recommendations-grid" id="recommendationsGrid"></div>
         </section>
 
-        <!-- Notes Section -->
+        <!-- Section: Observações -->
         <section class="section notes-section" id="sectionNotas">
             <div class="section-header">
                 <div class="section-icon notas">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
                         <path d="M12 9v2m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
                     </svg>
                 </div>
@@ -278,43 +286,58 @@
                     <p class="section-subtitle">Informações adicionais e pendências</p>
                 </div>
             </div>
-
-            <div class="notes-grid">
-                <div class="note-card warning">
-                    <div class="note-icon">⚠️</div>
-                    <div class="note-content">
-                        <h4>Adaptação Limitada</h4>
-                        <p>Não há possibilidade de reorganizar a distribuição de camas nos quartos. A adaptação máxima possível é utilizar colchões no chão, caso haja necessidade de retirar pessoas do terceiro andar dos beliches.</p>
-                    </div>
-                </div>
-                <div class="note-card info">
-                    <div class="note-icon">📋</div>
-                    <div class="note-content">
-                        <h4>Pendência — Casinha Central</h4>
-                        <p>A quantidade exata de camas nos 3 quartos da casinha central precisa ser confirmada nas próximas semanas. A capacidade pode variar.</p>
-                    </div>
-                </div>
-                <div class="note-card tip">
-                    <div class="note-icon">💡</div>
-                    <div class="note-content">
-                        <h4>Prioridade de Alocação</h4>
-                        <p>Recomenda-se alocar primeiro os grupos com necessidades especiais de acessibilidade (idosos, famílias com crianças de colo, PCDs) nos locais mais adequados, e depois distribuir o público geral.</p>
-                    </div>
-                </div>
-                <div class="note-card success">
-                    <div class="note-icon">✅</div>
-                    <div class="note-content">
-                        <h4>Banheiros Internos</h4>
-                        <p>Todos os quartos coletivos (01 a 11) possuem banheiros dentro do próprio quarto, o que facilita o acesso noturno e aumenta a praticidade para todos os públicos.</p>
-                    </div>
-                </div>
-            </div>
+            <div class="notes-grid" id="notesGrid"></div>
         </section>
     </main>
 
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="editModal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Editar Quarto</h3>
+                <button class="btn-icon modal-close" id="modalClose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic form -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="modalCancel">Cancelar</button>
+                <button class="btn btn-primary" id="modalSave">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal-overlay" id="confirmOverlay">
+        <div class="modal modal-sm">
+            <div class="modal-header">
+                <h3>Confirmar Ação</h3>
+                <button class="btn-icon modal-close" id="confirmClose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Tem certeza que deseja realizar esta ação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="confirmCancel">Cancelar</button>
+                <button class="btn btn-danger" id="confirmYes">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- Footer -->
     <footer class="footer">
-        <p>Quadro de Acomodações — Igreja Maceió — Atualizado em Julho de 2026</p>
+        <p>Quadro de Acomodações — Igreja Maceió — <span id="footerDate">Julho 2026</span></p>
     </footer>
 
     <script src="app.js"></script>
